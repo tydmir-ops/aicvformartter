@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AICV Formatter — Format Any CV in Seconds</title>
+<meta name="description" content="Upload your CV. Pick a style. Download a perfectly formatted, ATS-ready document in seconds. Free forever." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --white: #ffffff;
+  --off: #f7f8fa;
+  --surface: #f0f2f5;
+  --border: #e4e7ec;
+  --border-dark: #cdd2da;
+  --text: #0d1117;
+  --muted: #6b7585;
+  --subtle: #9ba4b4;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --blue-light: #eff4ff;
+  --blue-mid: #bfcfff;
+  --green: #16a34a;
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 60px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+.nav-logo-mark {
+  width: 28px; height: 28px; background: var(--blue);
+  border-radius: 7px; display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-text { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 500; }
+.nav-logo-text span { color: var(--blue); }
+.nav-center { display: flex; gap: 4px; }
+.nav-center a {
+  padding: 6px 14px; border-radius: 7px;
+  font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: all 0.15s;
+}
+.nav-center a:hover { background: var(--off); color: var(--text); }
+.nav-right { display: flex; gap: 10px; align-items: center; }
+.nav-btn {
+  padding: 7px 18px; border-radius: 8px; font-size: 0.82rem; font-weight: 500;
+  cursor: pointer; text-decoration: none; font-family: 'Sora', sans-serif;
+  transition: all 0.15s; border: 1.5px solid var(--border);
+  background: transparent; color: var(--text);
+}
+.nav-btn:hover { background: var(--off); }
+.nav-btn-primary { background: var(--blue); color: white; border-color: var(--blue); }
+.nav-btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+
+/* HERO */
+.hero {
+  padding: 120px 40px 80px;
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center; min-height: 100vh;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500;
+  color: var(--blue); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 24px;
+}
+.hero-eyebrow::before { content:''; display:block; width:20px; height:1.5px; background:var(--blue); }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 4.5vw, 4.4rem);
+  font-weight: 900; line-height: 1.08;
+  letter-spacing: -0.03em; margin-bottom: 24px;
+}
+h1 em { font-style: italic; color: var(--blue); font-weight: 700; }
+.hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.75; max-width: 440px; margin-bottom: 40px; font-weight: 300; }
+.hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 26px; background: var(--blue); color: white;
+  border-radius: 10px; font-size: 0.9rem; font-weight: 500;
+  text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+  font-family: 'Sora', sans-serif;
+  box-shadow: 0 1px 3px rgba(37,99,235,0.3), 0 8px 20px rgba(37,99,235,0.15);
+}
+.btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 2px 6px rgba(37,99,235,0.4), 0 12px 28px rgba(37,99,235,0.2); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 22px; background: transparent; color: var(--muted);
+  border-radius: 10px; font-size: 0.9rem; font-weight: 400;
+  text-decoration: none; transition: all 0.2s; border: 1.5px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--border-dark); color: var(--text); }
+.hero-trust { margin-top: 36px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.trust-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--subtle); font-family: 'JetBrains Mono', monospace; }
+.trust-item .chk { color: var(--green); font-size: 0.7rem; }
+.trust-sep { width: 1px; height: 14px; background: var(--border); }
+
+/* HERO VISUAL */
+.hero-visual { display: flex; justify-content: center; align-items: center; }
+.transform-demo {
+  width: 100%; max-width: 440px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03), 0 4px 6px rgba(0,0,0,0.04), 0 24px 48px rgba(0,0,0,0.09);
+}
+.demo-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 18px; border-bottom: 1px solid var(--border); background: var(--off);
+}
+.demo-dots { display: flex; gap: 6px; }
+.demo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+.demo-dot:nth-child(1){background:#ff5f57} .demo-dot:nth-child(2){background:#febc2e} .demo-dot:nth-child(3){background:#28c840}
+.demo-title { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--subtle); }
+.demo-live {
+  display: flex; align-items: center; gap: 5px;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--blue); font-weight: 500;
+}
+.demo-live::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--blue); animation: blink 1.5s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.demo-panels { display: grid; grid-template-columns: 1fr 1fr; }
+.demo-panel { padding: 18px 16px; }
+.demo-panel:first-child { border-right: 1px solid var(--border); }
+.demo-panel-lbl {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+  color: var(--subtle); text-transform: uppercase; letter-spacing: 0.09em;
+  margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+.rl { height: 6px; border-radius: 3px; background: var(--surface); margin-bottom: 5px; }
+.rl.b { background: #d4d8df; }
+.rg { height: 9px; }
+.fmt-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
+.fmt-role { font-size: 0.58rem; color: var(--blue); font-family: 'JetBrains Mono', monospace; margin-bottom: 9px; padding-bottom: 9px; border-bottom: 1.5px solid var(--blue-mid); transition: color 0.3s, border-color 0.3s; }
+.fmt-sec { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); font-weight: 500; margin-bottom: 5px; margin-top: 9px; transition: color 0.3s; }
+.fl { height: 5px; border-radius: 3px; background: var(--blue-light); margin-bottom: 4px; transition: background 0.3s; }
+.fmt-tags { display: flex; gap: 3px; margin-top: 5px; flex-wrap: wrap; }
+.ftag { padding: 2px 6px; border-radius: 4px; background: var(--blue-light); color: var(--blue); font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; transition: background 0.3s, color 0.3s; }
+
+.demo-mid {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 12px 16px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  background: var(--off);
+}
+.demo-mid-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--muted); }
+.demo-mid-arr { color: var(--blue); display: flex; align-items: center; }
+
+.demo-tpls { display: flex; gap: 6px; padding: 12px 16px; background: var(--off); border-top: 1px solid var(--border); overflow-x: auto; }
+.demo-tpl {
+  flex-shrink: 0; padding: 4px 10px; border-radius: 6px;
+  font-size: 0.62rem; font-family: 'JetBrains Mono', monospace;
+  cursor: pointer; border: 1.5px solid var(--border);
+  color: var(--muted); background: var(--white); transition: all 0.15s; white-space: nowrap;
+}
+.demo-tpl.active { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.demo-tpl:hover:not(.active) { border-color: var(--border-dark); color: var(--text); }
+
+/* PROOF */
+.proof-bar {
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 24px 40px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+}
+.proof-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 12px; white-space: nowrap; }
+.proof-chip { padding: 5px 14px; border-radius: 100px; border: 1px solid var(--border); background: var(--off); font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+
+/* FEATURES */
+.features { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+.section-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--blue); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.section-eyebrow::before { content:''; display:block; width:16px; height:1.5px; background:var(--blue); }
+.section-h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3vw, 2.8rem); font-weight: 900; letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 14px; }
+.section-sub { font-size: 1rem; color: var(--muted); max-width: 480px; font-weight: 300; line-height: 1.75; margin-bottom: 56px; }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.feature-cell { background: var(--white); padding: 36px 32px; transition: background 0.2s; }
+.feature-cell:hover { background: var(--off); }
+.feature-num { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--blue); letter-spacing: 0.08em; margin-bottom: 18px; display: block; }
+.feature-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+.feature-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; font-weight: 300; }
+
+/* FORMATS */
+.formats { padding: 100px 40px; background: var(--off); }
+.formats-inner { max-width: 1200px; margin: 0 auto; }
+.formats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.format-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 26px 22px; cursor: pointer; transition: all 0.2s; }
+.format-card:hover { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-light), 0 8px 24px rgba(0,0,0,0.07); transform: translateY(-3px); }
+.format-icon { width: 38px; height: 38px; background: var(--off); border: 1px solid var(--border); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1rem; margin-bottom: 16px; }
+.format-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.format-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+.format-tag { display: inline-block; margin-top: 12px; padding: 3px 8px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 500; background: var(--blue-light); color: var(--blue); text-transform: uppercase; letter-spacing: 0.06em; }
+.format-tag.gray { background: var(--surface); color: var(--subtle); }
+
+/* HOW */
+.how { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+.how-step { position: relative; }
+.how-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: var(--blue-mid); line-height: 1; margin-bottom: 16px; transition: color 0.25s; }
+.how-step:hover .how-num { color: var(--blue); }
+.how-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; }
+.how-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.75; font-weight: 300; }
+.how-arr { position: absolute; top: 26px; right: -20px; color: var(--border-dark); font-size: 1.2rem; }
+
+/* WAITLIST */
+.waitlist-wrap { padding: 60px 40px 100px; max-width: 1200px; margin: 0 auto; }
+.waitlist-card {
+  background: var(--text); border-radius: 24px; padding: 72px 80px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.waitlist-card::before { content:''; position:absolute; top:-120px; right:-80px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%); pointer-events:none; }
+.waitlist-card::after { content:''; position:absolute; bottom:-100px; left:10%; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%); pointer-events:none; }
+.wl-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--blue-mid); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.wl-eyebrow::before { content:''; width:14px; height:1px; background:var(--blue-mid); }
+.waitlist-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 900; color: white; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 14px; }
+.waitlist-left p { font-size: 0.875rem; color: #8899bb; line-height: 1.75; font-weight: 300; margin-bottom: 32px; }
+.wl-stats { display: flex; gap: 32px; }
+.wstat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: white; line-height: 1; }
+.wstat-num span { color: var(--blue); }
+.wstat-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #556680; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+.wl-form { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 38px 34px; position: relative; z-index: 1; }
+.wl-form-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 5px; }
+.wl-form-sub { font-size: 0.78rem; color: #8899bb; margin-bottom: 24px; font-weight: 300; }
+.form-field { width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 9px; color: white; font-family: 'Sora', sans-serif; font-size: 0.875rem; outline: none; transition: all 0.2s; margin-bottom: 10px; }
+.form-field::placeholder { color: #556680; }
+.form-field:focus { border-color: var(--blue); background: rgba(37,99,235,0.08); box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+.form-submit { width: 100%; padding: 13px; background: var(--blue); color: white; border: none; border-radius: 9px; font-family: 'Sora', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.form-submit:hover { background: var(--blue-dark); transform: translateY(-1px); }
+.form-submit.done { background: var(--green); }
+.form-privacy { font-size: 0.7rem; color: #445566; text-align: center; margin-top: 12px; font-family: 'JetBrains Mono', monospace; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+.footer-brand { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--muted); }
+.footer-brand strong { color: var(--text); }
+.footer-note { font-size: 0.76rem; color: var(--subtle); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 0.76rem; color: var(--subtle); text-decoration: none; transition: color 0.15s; }
+.footer-links a:hover { color: var(--text); }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@keyframes fadein { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+.hero-left > * { opacity: 0; animation: fadein 0.65s ease forwards; }
+.hero-left > *:nth-child(1){animation-delay:.05s} .hero-left > *:nth-child(2){animation-delay:.15s}
+.hero-left > *:nth-child(3){animation-delay:.25s} .hero-left > *:nth-child(4){animation-delay:.35s}
+.hero-left > *:nth-child(5){animation-delay:.42s}
+.hero-visual { opacity: 0; animation: fadein 0.75s ease 0.28s forwards; }
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;gap:48px;min-height:auto}
+  .formats-grid{grid-template-columns:repeat(2,1fr)}
+  .how-grid{grid-template-columns:1fr;gap:28px}
+  .how-arr{display:none}
+  .waitlist-card{grid-template-columns:1fr;gap:40px;padding:48px 40px}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  nav{padding:0 20px} .nav-center{display:none}
+  .hero,.features,.how,.waitlist-wrap{padding-left:20px;padding-right:20px}
+  .formats{padding:80px 20px}
+  .formats-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr}
+  .waitlist-card{padding:32px 22px;border-radius:16px}
+  .wl-stats{gap:18px}
+  footer{flex-direction:column;gap:14px;text-align:center;padding:24px 20px}
+  .proof-bar{padding:18px 20px;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <rect x="2" y="2" width="5" height="6" rx="1" fill="white" opacity="0.7"/>
+        <rect x="2" y="10" width="5" height="4" rx="1" fill="white"/>
+        <rect x="9" y="2" width="5" height="4" rx="1" fill="white" opacity="0.5"/>
+        <rect x="9" y="8" width="5" height="6" rx="1" fill="white"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">ai<span>cv</span>formatter</span>
+  </a>
+  <div class="nav-center">
+    <a href="#formats">Templates</a>
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+  </div>
+  <div class="nav-right">
+    <a href="#waitlist" class="nav-btn nav-btn-primary">Join Waitlist</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Coming Soon &mdash; Free Forever</div>
+    <h1>Format any CV.<br><em>Instantly.</em><br>Beautifully.</h1>
+    <p class="hero-desc">Upload your CV in any format. Choose a professional template. Download an ATS-ready document in under 60 seconds &mdash; no account, no cost.</p>
+    <div class="hero-actions">
+      <a href="#waitlist" class="btn-primary">
+        Get Early Access
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#how" class="btn-secondary">See how it works</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><span class="chk">✓</span> Free forever</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="chk">✓</span> ATS optimised</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="chk">✓</span> No sign-up needed</div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="transform-demo">
+      <div class="demo-topbar">
+        <div class="demo-dots"><div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div></div>
+        <div class="demo-title">aicvformatter.com</div>
+        <div class="demo-live">AI Processing</div>
+      </div>
+      <div class="demo-panels">
+        <!-- raw -->
+        <div class="demo-panel">
+          <div class="demo-panel-lbl">Your CV &mdash; before</div>
+          <div class="rl b" style="width:55%"></div>
+          <div class="rl" style="width:62%"></div>
+          <div class="rg"></div>
+          <div class="rl b" style="width:44%"></div>
+          <div class="rl" style="width:100%"></div>
+          <div class="rl" style="width:78%"></div>
+          <div class="rl" style="width:100%"></div>
+          <div class="rg"></div>
+          <div class="rl b" style="width:48%"></div>
+          <div class="rl" style="width:72%"></div>
+          <div class="rl" style="width:100%"></div>
+          <div class="rl" style="width:55%"></div>
+          <div class="rg"></div>
+          <div class="rl b" style="width:40%"></div>
+          <div class="rl" style="width:80%"></div>
+          <div class="rl" style="width:90%"></div>
+        </div>
+        <!-- formatted -->
+        <div class="demo-panel">
+          <div class="demo-panel-lbl">Formatted &mdash; after</div>
+          <div class="fmt-name" id="dn">Sarah Chen</div>
+          <div class="fmt-role" id="dr">Software Engineer &middot; London</div>
+          <div class="fmt-sec" id="ds1">Experience</div>
+          <div class="fl" style="width:100%"></div>
+          <div class="fl" style="width:80%"></div>
+          <div class="fl" style="width:65%"></div>
+          <div class="fmt-sec" id="ds2">Education</div>
+          <div class="fl" style="width:100%"></div>
+          <div class="fl" style="width:60%"></div>
+          <div class="fmt-sec" id="ds3">Skills</div>
+          <div class="fmt-tags">
+            <div class="ftag" id="ft1">React</div>
+            <div class="ftag" id="ft2">Node</div>
+            <div class="ftag" id="ft3">Python</div>
+            <div class="ftag" id="ft4">AWS</div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-mid">
+        <div class="demo-mid-lbl">Choose your template</div>
+        <div class="demo-mid-arr">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="demo-tpls">
+        <div class="demo-tpl active" onclick="tpl(this,'Modern Minimal','#2563eb','#eff4ff','Sarah Chen','Software Engineer · London',['React','Node','Python','AWS'])">Modern Minimal</div>
+        <div class="demo-tpl" onclick="tpl(this,'ATS Classic','#16a34a','#f0fdf4','James Parker','Product Manager · NYC',['Strategy','Agile','OKRs','SaaS'])">ATS Classic</div>
+        <div class="demo-tpl" onclick="tpl(this,'Executive','#7c3aed','#f5f3ff','Victoria Reed','COO · Dubai',['P&L','M&A','Ops','Leadership'])">Executive</div>
+        <div class="demo-tpl" onclick="tpl(this,'Tech Pro','#0891b2','#ecfeff','Kai Nakamura','Backend Engineer · Berlin',['Go','Rust','K8s','SQL'])">Tech Pro</div>
+        <div class="demo-tpl" onclick="tpl(this,'Creative','#ea580c','#fff7ed','Luna Silva','Brand Designer · Amsterdam',['Figma','Brand','Motion','Type'])">Creative</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<div class="proof-bar">
+  <span class="proof-lbl">Works for</span>
+  <div class="proof-chip">🎓 Graduates</div>
+  <div class="proof-chip">👔 Career Switchers</div>
+  <div class="proof-chip">🌍 International Applicants</div>
+  <div class="proof-chip">🧑‍💻 Software Engineers</div>
+  <div class="proof-chip">🎨 Creatives</div>
+  <div class="proof-chip">🏢 Executives</div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="reveal">
+    <div class="section-eyebrow">Why AICV Formatter</div>
+    <h2 class="section-h2">Built different.<br>For a reason.</h2>
+    <p class="section-sub">Every other CV tool either charges a premium, forces you to rebuild from scratch, or spits out robotic results. We fix all three.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-cell reveal">
+      <span class="feature-num">01 — CORE</span>
+      <div class="feature-title">AI-powered parsing</div>
+      <div class="feature-desc">Drop in a messy Word doc, scanned PDF, or plain text. Our AI extracts every job, date, and achievement with precision before reformatting.</div>
+    </div>
+    <div class="feature-cell reveal" style="transition-delay:.08s">
+      <span class="feature-num">02 — QUALITY</span>
+      <div class="feature-title">ATS-tested templates</div>
+      <div class="feature-desc">Every template is verified against the top ATS systems used by Fortune 500 companies. Your CV will be read &mdash; by machines and humans alike.</div>
+    </div>
+    <div class="feature-cell reveal" style="transition-delay:.16s">
+      <span class="feature-num">03 — SPEED</span>
+      <div class="feature-title">Under 60 seconds</div>
+      <div class="feature-desc">Upload. Select. Download. The complete process takes less than a minute. No queues, no delays, no email links to click.</div>
+    </div>
+    <div class="feature-cell reveal" style="transition-delay:.08s">
+      <span class="feature-num">04 — PRIVACY</span>
+      <div class="feature-title">Zero data retention</div>
+      <div class="feature-desc">Your CV is processed in-memory and deleted after download. We never store, index, or sell your personal data. Period.</div>
+    </div>
+    <div class="feature-cell reveal" style="transition-delay:.16s">
+      <span class="feature-num">05 — ACCESS</span>
+      <div class="feature-title">Always free</div>
+      <div class="feature-desc">No freemium walls. No export paywalls. No token limits. Every template, every download &mdash; free forever. Funded by us, not by you.</div>
+    </div>
+    <div class="feature-cell reveal" style="transition-delay:.24s">
+      <span class="feature-num">06 — GLOBAL</span>
+      <div class="feature-title">30+ languages</div>
+      <div class="feature-desc">Format CVs in over 30 languages with correct typography, date formats, and regional conventions. Built for the global job market.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section class="formats" id="formats">
+  <div class="formats-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Template Library</div>
+      <h2 class="section-h2">A format for every career.</h2>
+      <p class="section-sub">Professionally designed templates for every industry, seniority level, and application context.</p>
+    </div>
+    <div class="formats-grid">
+      <div class="format-card reveal">
+        <div class="format-icon">📄</div>
+        <div class="format-name">ATS Classic</div>
+        <div class="format-desc">Machine-readable, clean, and proven. Passes every ATS filter with a top-percentile score.</div>
+        <span class="format-tag">Most Used</span>
+      </div>
+      <div class="format-card reveal" style="transition-delay:.07s">
+        <div class="format-icon">◻</div>
+        <div class="format-name">Modern Minimal</div>
+        <div class="format-desc">Swiss-grid precision and generous whitespace. The go-to for tech, product, and startup roles.</div>
+        <span class="format-tag">Trending</span>
+      </div>
+      <div class="format-card reveal" style="transition-delay:.14s">
+        <div class="format-icon">🏛</div>
+        <div class="format-name">Executive</div>
+        <div class="format-desc">Authoritative and refined. Designed for senior management, director, and C-suite applications.</div>
+        <span class="format-tag">Senior Roles</span>
+      </div>
+      <div class="format-card reveal" style="transition-delay:.21s">
+        <div class="format-icon">⚡</div>
+        <div class="format-name">Tech Pro</div>
+        <div class="format-desc">GitHub-inspired layout that surfaces skills, projects, and stack first. Built for engineers.</div>
+        <span class="format-tag">Engineering</span>
+      </div>
+      <div class="format-card reveal">
+        <div class="format-icon">🎨</div>
+        <div class="format-name">Creative</div>
+        <div class="format-desc">Bold typographic hierarchy and personality. For designers, marketers, and creative directors.</div>
+        <span class="format-tag">Creative</span>
+      </div>
+      <div class="format-card reveal" style="transition-delay:.07s">
+        <div class="format-icon">🔬</div>
+        <div class="format-name">Academic</div>
+        <div class="format-desc">Structured for publications, credentials, and research. Optimised for academic and scientific roles.</div>
+        <span class="format-tag">Research</span>
+      </div>
+      <div class="format-card reveal" style="transition-delay:.14s">
+        <div class="format-icon">🌍</div>
+        <div class="format-name">Euro Standard</div>
+        <div class="format-desc">Europass-compatible format accepted across EU institutions, NGOs, and international organisations.</div>
+        <span class="format-tag">International</span>
+      </div>
+      <div class="format-card reveal" style="transition-delay:.21s">
+        <div class="format-icon">✉️</div>
+        <div class="format-name">+ Cover Letter</div>
+        <div class="format-desc">Auto-generated, tone-matched cover letter alongside your CV. A complete application package.</div>
+        <span class="format-tag gray">Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="reveal">
+    <div class="section-eyebrow">The Process</div>
+    <h2 class="section-h2">Three steps.<br>Under a minute.</h2>
+    <p class="section-sub">We stripped out everything unnecessary. No accounts, no rebuilding from scratch, no paid exports.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-step reveal">
+      <div class="how-num">01</div>
+      <div class="how-title">Upload your CV</div>
+      <div class="how-desc">Drop in your existing CV in any format &mdash; PDF, Word doc, or plain text. Our AI reads and understands the structure automatically.</div>
+      <div class="how-arr">&rarr;</div>
+    </div>
+    <div class="how-step reveal" style="transition-delay:.12s">
+      <div class="how-num">02</div>
+      <div class="how-title">Pick your template</div>
+      <div class="how-desc">Browse the template library, preview each format live, and choose the style that fits your industry and target role.</div>
+      <div class="how-arr">&rarr;</div>
+    </div>
+    <div class="how-step reveal" style="transition-delay:.24s">
+      <div class="how-num">03</div>
+      <div class="how-title">Download &amp; apply</div>
+      <div class="how-desc">Get your perfectly formatted CV as a PDF instantly. ATS-ready, visually polished, and ready to send with confidence.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section id="waitlist" class="waitlist-wrap">
+  <div class="waitlist-card reveal">
+    <div class="waitlist-left">
+      <div class="wl-eyebrow">Early Access</div>
+      <h2>Be first when we launch.</h2>
+      <p>We're putting the finishing touches on AICV Formatter. Join the waitlist for priority access at launch &mdash; plus exclusive early-adopter templates as we build.</p>
+      <div class="wl-stats">
+        <div><div class="wstat-num">8<span>+</span></div><div class="wstat-lbl">Templates</div></div>
+        <div><div class="wstat-num">60<span>s</span></div><div class="wstat-lbl">To Format</div></div>
+        <div><div class="wstat-num">$<span>0</span></div><div class="wstat-lbl">Forever</div></div>
+      </div>
+    </div>
+    <div class="wl-form">
+      <div class="wl-form-title">Get notified at launch</div>
+      <div class="wl-form-sub">No spam. One email when we go live.</div>
+      <input class="form-field" type="text" id="wl-name" placeholder="Your name" autocomplete="name" />
+      <input class="form-field" type="email" id="wl-email" placeholder="Your email address" autocomplete="email" />
+      <button class="form-submit" id="wl-btn" onclick="submitWL()">
+        <span id="wl-txt">Notify Me at Launch</span>
+        <svg id="wl-arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="form-privacy">🔒 your data is safe &middot; we never sell or spam</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand"><strong>aicvformatter</strong>.com</div>
+  <span class="footer-note">© 2025 AICV Formatter &mdash; Built for every job seeker</span>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Contact</a>
+    <a href="#waitlist">Waitlist</a>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }), {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Template switcher
+function tpl(el, name, accent, bg, person, role, tags) {
+  document.querySelectorAll('.demo-tpl').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.fmt-sec').forEach(t => t.style.color = accent);
+  document.querySelectorAll('.fl').forEach(t => t.style.background = bg);
+  document.querySelectorAll('.ftag').forEach(t => { t.style.background = bg; t.style.color = accent; });
+  const dr = document.getElementById('dr');
+  dr.style.color = accent; dr.style.borderBottomColor = accent;
+  const dn = document.getElementById('dn');
+  dn.style.transition = dr.style.transition = 'opacity 0.2s';
+  dn.style.opacity = dr.style.opacity = '0';
+  setTimeout(() => {
+    dn.textContent = person; dr.textContent = role;
+    ['ft1','ft2','ft3','ft4'].forEach((id,i) => { const t = document.getElementById(id); if(t) t.textContent = tags[i]||''; });
+    dn.style.opacity = dr.style.opacity = '1';
+  }, 200);
+}
+
+// Waitlist
+function submitWL() {
+  const email = document.getElementById('wl-email').value.trim();
+  const btn = document.getElementById('wl-btn');
+  if(!email || !email.includes('@')) {
+    const f = document.getElementById('wl-email');
+    f.style.borderColor = '#ef4444'; f.focus(); return;
+  }
+  btn.classList.add('done');
+  document.getElementById('wl-txt').textContent = "You're on the list! 🎉";
+  document.getElementById('wl-arr').style.display = 'none';
+  document.getElementById('wl-name').disabled = true;
+  document.getElementById('wl-email').disabled = true;
+  btn.disabled = true;
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+</script>
+</body>
+</html>
