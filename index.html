@@ -601,19 +601,28 @@ function tpl(el, name, accent, bg, person, role, tags) {
 }
 
 // Waitlist
-function submitWL() {
+async function submitWL() {
+  const name = document.getElementById('wl-name').value.trim();
   const email = document.getElementById('wl-email').value.trim();
   const btn = document.getElementById('wl-btn');
   if(!email || !email.includes('@')) {
     const f = document.getElementById('wl-email');
     f.style.borderColor = '#ef4444'; f.focus(); return;
   }
+  btn.disabled = true;
+  document.getElementById('wl-txt').textContent = 'Sending...';
+  document.getElementById('wl-arr').style.display = 'none';
+  try {
+    await fetch('https://formspree.io/f/mvzwwqyy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email })
+    });
+  } catch(e) { console.error(e); }
   btn.classList.add('done');
   document.getElementById('wl-txt').textContent = "You're on the list! 🎉";
-  document.getElementById('wl-arr').style.display = 'none';
   document.getElementById('wl-name').disabled = true;
   document.getElementById('wl-email').disabled = true;
-  btn.disabled = true;
 }
 
 // Smooth scroll
